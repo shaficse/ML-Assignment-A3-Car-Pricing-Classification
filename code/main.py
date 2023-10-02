@@ -96,13 +96,13 @@ def Predict_price_category(year, km_driven, engine_size, fuel, transmission, sub
     print(year, km_driven, engine_size, fuel, transmission)
 
     if year is None:
-        age = 7.137924897668625 #initialized by mean of age
+        age = 7 #initialized by mean of age
     else:
         age = abs(2020+1 - year)  #calculating age as the same way was done in training  ( age_of_car = [ max_year_of_data_set + 1 - year_of_car_model ] )
     if km_driven is None:
-        km_driven = np.log(70029.87346502936) #initialized by mean of km_driven
+        km_driven = np.log(70029) #initialized by mean of km_driven
     if engine_size is None:
-        engine_size = 1463.855626715462 #initialized by mean of engine_size
+        engine_size = 1463 #initialized by mean of engine_size
     if fuel is None or fuel == "Diesel":
         fuel = 0 #initialized by Diesel type if no input
     else:
