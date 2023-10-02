@@ -8,43 +8,14 @@ from sklearn.preprocessing import StandardScaler
 import mlflow
 import os
 
-
+#initialize mlflow url and  experiment 
 mlflow.set_tracking_uri("https://mlflow.cs.ait.ac.th")
 mlflow.set_experiment(experiment_name="st124047-a3")
-
-
-def save(filename:str, obj:object):
-    with open(filename, 'wb') as handle:
-        pickle.dump(obj, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-def load(filename:str) -> object:
-    with open(filename, 'rb') as handle:
-        b = pickle.load(handle)
-    return b
-
-
-def load_mlflow(model_name, stage='Staging'):
-    cache_path = os.path.join("models",stage)
-    if(os.path.exists(cache_path) == False):
-        os.makedirs(cache_path)
-    
-    # check if we cache the model
-    path = os.path.join(cache_path,model_name)
-    print()
-    if(os.path.exists( path ) == False):
-        # This will keep load the model again and again.
-        model = mlflow.sklearn.load_model(model_uri=cache_path)
-        save(filename=path, obj=model)
-
-    model = load(path)
-    return model
 
 #Load Model
 model_name = 'st124047-a3-model'
 model_version = 'Staging'
-
-model = load_mlflow(model_name, stage=model_version)
+loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_version}")
 
 # load the scaling parameters for both model(same scaler is used for the features for both models)
 scaler_path = "scaler/scaler.pkl"
@@ -112,7 +83,8 @@ app.layout = dbc.Container([
     Input(component_id="submit", component_property='n_clicks'),
     prevent_initial_call=True
 )
-def Predict_price_category(model_dropdown,year, km_driven, engine_size, fuel, transmission, submit):
+
+def Predict_price_category(year, km_driven, engine_size, fuel, transmission, submit):
     print(year, km_driven, engine_size, fuel, transmission)
 
     if year is None:
@@ -147,7 +119,7 @@ def Predict_price_category(model_dropdown,year, km_driven, engine_size, fuel, tr
     # print(age, km_driven, engine_size, fuel, transmission, model_dropdown)
     intercept = np.ones((input_feature.shape[0], 1))
     input_feature    = np.concatenate((intercept, input_feature), axis=1)
-    predPriceClass = model.predict(input_feature)[0]
+    predPriceClass = loaded_model.predict(input_feature)[0]
     predictedText = f"Predicted Selling Price Category: {predPriceClass}"
     return predictedText
 # Run the app
