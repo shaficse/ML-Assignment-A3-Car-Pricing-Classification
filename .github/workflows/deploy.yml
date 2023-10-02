@@ -49,5 +49,3 @@ jobs:
           script: |
             tag=${{ github.ref_name }} docker compose -f /home/st124047/st124047/docker-compose.yml down
             tag=${{ github.ref_name }} docker compose -f /home/st124047/st124047/docker-compose.yml up -d
-            # tag=$github_ref_name docker compose -f /home/st124047/docker-compose.yaml down
-            # tag=$github_ref_name docker compose -f /home/st124047/st124047/docker-compose.yaml up -d
