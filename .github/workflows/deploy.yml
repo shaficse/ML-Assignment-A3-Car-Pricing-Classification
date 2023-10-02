@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build_n_push:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,3 +32,22 @@ jobs:
 
       - name: Up Docker Compose services
         run: docker-compose -f docker-compose.yml up -d
+  deploy:
+    # environment: Production
+    needs: build_n_push
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          proxy_host: ${{ vars.PROXY_HOST }}
+          proxy_username: ${{ secrets.USERNAME }}
+          proxy_key: ${{ secrets.KEY }}
+          script: |
+            tag=${{ github.ref_name }} docker compose -f /home/st124047/st124047/docker-compose.yml down
+            tag=${{ github.ref_name }} docker compose -f /home/st124047/st124047/docker-compose.yml up -d
+            # tag=$github_ref_name docker compose -f /home/st124047/docker-compose.yaml down
+            # tag=$github_ref_name docker compose -f /home/st124047/st124047/docker-compose.yaml up -d
