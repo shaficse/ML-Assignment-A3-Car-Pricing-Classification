@@ -8,16 +8,23 @@ from sklearn.preprocessing import StandardScaler
 import mlflow
 import os
 
-# initialize mlflow url and  experiment 
-url = "https://mlflow.cs.ait.ac.th"
-experiment_name="st124047-a3"
+# initialize mlflow url and  experiment for locally
+# mlflow_url = "https://mlflow.cs.ait.ac.th"
+# experiment_name="st124047-a3"
 
-mlflow.set_tracking_uri(url)
+# Access environment variables
+mlflow_url = os.environ.get("MLFLOW_URL")
+experiment_name = os.environ.get("MLFLOW_EXPERIMENT_NAME")
+model_name = os.environ.get("MLFLOW_MODEL_NAME")
+model_version = os.environ.get("MLFLOW_MODEL_VERSION")
+
+mlflow.set_tracking_uri(mlflow_url)
 mlflow.set_experiment(experiment_name)
 
 # #Load Model
-model_name = 'st124047-a3-model'
-model_version = 'Staging'
+# model_name = 'st124047-a3-model'
+# model_version = 'Staging'
+
 loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_version}")
 
 
