@@ -8,6 +8,11 @@ on:
 jobs:
   build_n_push:
     runs-on: ubuntu-latest
+    env:
+      MLFLOW_URL: ${{ secrets.MLFLOW_URL }}
+      MLFLOW_EXPERIMENT_NAME: ${{ secrets.MLFLOW_EXPERIMENT_NAME }}
+      MLFLOW_MODEL_NAME: ${{ secrets.MLFLOW_MODEL_NAME }}
+      MLFLOW_MODEL_VERSION: ${{ secrets.MLFLOW_MODEL_VERSION }}
 
     steps:
       - name: Checkout code
