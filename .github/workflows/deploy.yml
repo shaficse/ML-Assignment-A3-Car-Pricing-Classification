@@ -1,0 +1,34 @@
+name: Deploy with Docker Compose
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install docker-compose
+
+      - name: Login to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Pull Docker Compose services
+        run: docker-compose -f docker-compose.yml pull
+
+      # Add the "Build and Push" step here
+      - name: Build and push Docker images
+        run: |
+         docker build -t shaficse/ml-ait-st124047:latest .
+         docker push     shaficse/ml-ait-st124047:latest
+
+      - name: Up Docker Compose services
+        run: docker-compose -f docker-compose.yml up -d
