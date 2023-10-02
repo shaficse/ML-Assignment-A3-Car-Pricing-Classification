@@ -42,6 +42,10 @@ app.layout = dbc.Container([
         - To predict the selling price of a car-   
            - **1. Please provide the required inputs(Year, km driven, Engine size, type of fuel and Transmission**(Blank input will be automatically filled using a imputation technique)
            - **2. Please Click "Predict" button. The app will predict the selling price category based on the provided inputs**
+           - **3. Category of price has an order.** For example, 
+                    - category 3 has higher selling price than category 2 
+                    - category 2 has higher selling price than category 1
+                    - category 1 has higher selling price than category 0 
         ''')
     ]),
     dbc.Row([
