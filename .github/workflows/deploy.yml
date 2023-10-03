@@ -1,9 +1,12 @@
 name: Deploy with Docker Compose
-
+# Name of this run
+run-name: ${{ github.actor }} Building and Testing
 on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 
 jobs:
   unit_test:
