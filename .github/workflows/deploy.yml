@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'
-
 jobs:
   unit_test:
     runs-on: ubuntu-latest
@@ -46,8 +43,8 @@ jobs:
       # Add the "Build and Push" step here
       - name: Build and push Docker images
         run: |
-         docker build -t shaficse/ml-ait-st124047:latest .
-         docker push     shaficse/ml-ait-st124047:latest
+         docker build -t shaficse/ml-ait-st124047: v1.0 .
+         docker push     shaficse/ml-ait-st124047: v1.0
 
       - name: Up Docker Compose services
         run: docker-compose -f docker-compose.yml up -d
