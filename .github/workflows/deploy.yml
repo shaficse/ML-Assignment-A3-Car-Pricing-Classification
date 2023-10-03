@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  unit_test:
+  unit_test_transition:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,12 +20,12 @@ jobs:
         run: |
           pytest --verbose app/test_model.py
 
-      # - name: Run Transition
-      #   run: |
-      #     pytest --verbose app/transition.py
+      - name: Run Transition
+        run: |
+          pytest --verbose app/transition.py
 
   build_n_push:
-    needs: unit_test
+    needs: unit_test_transition
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
