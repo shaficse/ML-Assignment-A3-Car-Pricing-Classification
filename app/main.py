@@ -7,7 +7,7 @@ from utils import *
 from transition import loaded_model
 
 #load model after unit test pass and transition to 'Production'
-loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{'Production'}")
+# loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{'Production'}")
 # Initialize the app - incorporate a Dash Bootstrap theme
 external_stylesheets = [dbc.themes.CERULEAN]
 app = Dash(__name__, external_stylesheets=external_stylesheets)
