@@ -1,6 +1,4 @@
 from utils import *
-
-
 # Test whether the model takes expected input
 #initialize the features with user input values
 km_driven = np.log(450000)

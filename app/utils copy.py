@@ -5,14 +5,14 @@ import mlflow
 import os
 
 # initialize mlflow url and  experiment for locally
-# mlflow_url = "https://mlflow.cs.ait.ac.th"
-# experiment_name="st124047-a3"
+mlflow_url = "https://mlflow.cs.ait.ac.th"
+experiment_name="st124047-a3"
 
-mlflow.set_tracking_uri(os.environ['MLFLOW_TRACKING_URI'])
-mlflow.set_experiment(os.environ['EXPERIMENT_NAME'])
+mlflow.set_tracking_uri(mlflow_url)
+mlflow.set_experiment(experiment_name)
 
 # #Load Model
-model_name = os.environ['APP_MODEL_NAME']
+model_name = 'st124047-a3-model'
 model_version = 'Staging'
 
 loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_version}")
