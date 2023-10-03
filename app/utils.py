@@ -26,15 +26,3 @@ loaded_scaler = StandardScaler()
 loaded_scaler.mean_ = loaded_scaler_params['mean']
 loaded_scaler.scale_ = loaded_scaler_params['scale']
 
-def test_register_model_to_production():
-    from mlflow.client import MlflowClient
-    client = MlflowClient()
-    for model in client.get_registered_model(model_name).latest_versions: #type: ignore
-        # find model in Staging
-        if(model.current_stage == 'Staging'):
-            version = model.version
-            client.transition_model_version_stage(
-                name=model_name, version=version, stage="Production", archive_existing_versions=True
-            )
-            model_stage = "Production"
-            loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
