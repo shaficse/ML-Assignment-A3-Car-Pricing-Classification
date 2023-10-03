@@ -2,36 +2,9 @@
 from dash import Dash, html, callback, Output, Input, State, dcc
 import dash_bootstrap_components as dbc
 import dash_html_components as html
-# import pickle
-# import numpy as np
-# from sklearn.preprocessing import StandardScaler
-# import mlflow
-# import os
+
 from utils import *
-
-# # initialize mlflow url and  experiment for locally
-# mlflow_url = "https://mlflow.cs.ait.ac.th"
-# experiment_name="st124047-a3"
-
-# mlflow.set_tracking_uri(mlflow_url)
-# mlflow.set_experiment(experiment_name)
-
-# # #Load Model
-# model_name = 'st124047-a3-model'
-# model_version = 'Staging'
-
-# loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_version}")
-
-
-# # # load the scaling parameters for both model(same scaler is used for the features for both models)
-# scaler_path = "scaler/scaler.pkl"
-# loaded_scaler_params = pickle.load(open(scaler_path, 'rb'))
-
-# # # Create scaler with the loaded parameters
-# loaded_scaler = StandardScaler()
-# loaded_scaler.mean_ = loaded_scaler_params['mean']
-# loaded_scaler.scale_ = loaded_scaler_params['scale']
-
+from transition import loaded_model
 
 # Initialize the app - incorporate a Dash Bootstrap theme
 external_stylesheets = [dbc.themes.CERULEAN]

@@ -21,6 +21,7 @@ jobs:
     - name: Run unit tests
       run: |
         pytest --verbose app/test_model.py
+        pytest --verbose app/transition.py
 
   build_n_push:
     needs: unit_test
