@@ -20,6 +20,7 @@ model_name = 'st124047-a3-model'
 try:
     # Try to load the model from the 'Staging' stage
     loaded_model = mlflow.pyfunc.load_model(model_uri=f"models:/{model_name}/Staging")
+    
 except mlflow.exceptions.MlflowException:
     # Try to load the model from the 'Production' stage
     loaded_model = mlflow.pyfunc.load_model(model_uri=f"models:/{model_name}/Production")
