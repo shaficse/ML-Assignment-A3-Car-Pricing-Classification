@@ -13,7 +13,7 @@ mlflow.set_experiment(experiment_name)
 
 # #Load Model
 model_name = 'st124047-a3-model'
-model_stage = 'Version 2'
+model_stage = 'Staging'
 
 loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
 
@@ -36,4 +36,5 @@ def register_model_to_production():
             client.transition_model_version_stage(
                 name=model_name, version=version, stage="Production", archive_existing_versions=True
             )
-            loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{'Production'}")
+            model_stage = "Production"
+            loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
