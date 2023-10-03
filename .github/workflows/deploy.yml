@@ -27,7 +27,7 @@ jobs:
           pytest --verbose app/transition.py
 
   build_n_push:
-    needs: unit_test
+    needs: unit_test_transition
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
