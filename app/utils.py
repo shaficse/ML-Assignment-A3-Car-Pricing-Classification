@@ -5,17 +5,17 @@ import mlflow
 import os
 
 # initialize mlflow url and  experiment for locally
-# mlflow_url = "https://mlflow.cs.ait.ac.th"
-# experiment_name="st124047-a3"
+mlflow_url = "https://mlflow.cs.ait.ac.th"
+experiment_name="st124047-a3"
 
-mlflow.set_tracking_uri(os.environ['MLFLOW_TRACKING_URI'])
-mlflow.set_experiment(os.environ['EXPERIMENT_NAME'])
+mlflow.set_tracking_uri(mlflow_url)
+mlflow.set_experiment(experiment_name)
 
 # #Load Model
-model_name = os.environ['APP_MODEL_NAME']
-model_version = 'Staging'
+model_name = 'st124047-a3-model'
+model_stage = 'Staging'
 
-loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_version}")
+loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
 
 # load the scaling parameters for both model(same scaler is used for the features for both models)
 scaler_path = "scaler/scaler.pkl"
@@ -25,3 +25,15 @@ loaded_scaler_params = pickle.load(open(scaler_path, 'rb'))
 loaded_scaler = StandardScaler()
 loaded_scaler.mean_ = loaded_scaler_params['mean']
 loaded_scaler.scale_ = loaded_scaler_params['scale']
+
+def register_model_to_production():
+    from mlflow.client import MlflowClient
+    client = MlflowClient()
+    for model in client.get_registered_model(model_name).latest_versions: #type: ignore
+        # find model in Staging
+        if(model.current_stage == model_stage):
+            version = model.version
+            client.transition_model_version_stage(
+                name=model_name, version=version, stage="Production", archive_existing_versions=True
+            )
+            model_stage = "Production"
