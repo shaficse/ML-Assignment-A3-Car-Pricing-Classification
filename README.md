@@ -53,9 +53,21 @@ Here our process is
     - If unit test runs well, then  build the docker and push to the docker hub
     - by using a docker compose file we deploy the docker in an ubuntu server.
 
-- if the whole process is unwell, the git action workflows are look like below - 
+- if the whole process goes well, the git action workflows looks like below - 
 
 ![](Screenshots/cicd-1.png)
+
+- Sucessful Unit testing 
+
+![](Screenshots/cicd-unit-test.png)
+
+- Sucessful Docker build and push 
+
+![](Screenshots/cicd-docker-build.png)
+
+- Sucessful Deployment on Ubuntu Server
+
+![](Screenshots/cicd-deploy.png)
 
 - after the successful completion of worklow of git action, please check the Deployment (https://web-st124047.ml2023.cs.ait.ac.th/) 
 
