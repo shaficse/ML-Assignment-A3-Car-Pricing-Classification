@@ -1,3 +1,3 @@
 from utils import *
-
-register_model_to_production()
+if __name__ == '__main__':
+    register_model_to_production()
