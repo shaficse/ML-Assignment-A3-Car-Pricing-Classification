@@ -28,7 +28,20 @@ jobs:
   build_n_push:
     needs: unit_test
     runs-on: ubuntu-latest
-    steps:    
+    steps:
+      # https://github.com/actions/checkout: will clone Git into the image
+      - uses: actions/checkout@v4
+      # Execute terminal command.
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+          envkey_APP_MODEL_NAME: ${{ secrets.APP_MODEL_NAME }}
+          envkey_EXPERIMENT_NAME: ${{ secrets.EXPERIMENT_NAME }}
+          file_name: .env
+          fail_on_empty: true
+          sort_keys: true
+      
       - name: Checkout code
         uses: actions/checkout@v2
 
