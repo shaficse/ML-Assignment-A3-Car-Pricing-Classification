@@ -15,7 +15,7 @@ mlflow.set_experiment(experiment_name)
 model_name = 'st124047-a3-model'
 model_stage = 'Staging'
 
-loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
+# loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
 
 # load the scaling parameters for both model(same scaler is used for the features for both models)
 scaler_path = "scaler/scaler.pkl"
@@ -35,6 +35,4 @@ def register_model_to_production():
             version = model.version
             client.transition_model_version_stage(
                 name=model_name, version=version, stage="Production", archive_existing_versions=True
-            )
-            model_stage = "Production"
-            loaded_model = mlflow.sklearn.load_model(model_uri=f"models:/{model_name}/{model_stage}")
+            )          
