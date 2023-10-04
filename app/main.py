@@ -13,7 +13,7 @@ app = Dash(__name__, external_stylesheets=external_stylesheets)
 app.layout = dbc.Container([
     html.Div([
         dcc.Markdown('''
-        - To predict the selling price of a car-   
+        - To predict the selling price Category of a car-   
            - **1. Please provide the required inputs(Year, km driven, Engine size, type of fuel and Transmission**(Blank input will be automatically filled using a imputation technique)
            - **2. Please Click "Predict" button. The app will predict the selling price category based on the provided inputs**
            - **3. Category of price has an order.** For example, 
